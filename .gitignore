@@ -1,0 +1,26 @@
+# Build artifacts & multi-GB ROM images
+*.img
+*.img.orig
+*.img.bak
+*.zip
+*.tar
+*.tgz
+*.apk
+*.jar
+*.so
+*.odex
+*.vdex
+*.art
+*.oat
+
+# Local workspace extraction caches
+system_extracted/
+pandora_extracted/
+pandora_product/
+daisy_target/
+h3_system/
+scratch/
+out/
+__pycache__/
+*.pyc
+.DS_Store

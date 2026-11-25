@@ -1,0 +1,10 @@
+<!--
+    Input:
+        system/vold/mieed/android.system.mieed-service.xml
+-->
+<manifest version="9.0" type="framework">
+    <hal format="aidl">
+        <name>android.system.mieed</name>
+        <fqname>IMieed/default</fqname>
+    </hal>
+</manifest>

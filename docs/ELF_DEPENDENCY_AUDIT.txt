@@ -1,0 +1,388 @@
+================================================================================
+     HyperOS 4 Android 17 (daisy) - Automated ELF Dependency & Symbol Audit    
+================================================================================
+Workspace: /home/riajul/Pictures/HyperOS/daisy_target
+Audit Target Count: 12
+
+--------------------------------------------------------------------------------
+Binary: system/bin/surfaceflinger
+  Class: ELF64, Architecture: aarch64
+  Direct DT_NEEDED: 68 entries
+  Undefined Symbols: 254
+  Total Recursive Dependencies: 292
+  [!] MISSING LIBRARIES (3):
+      - libcom.android.tethering.connectivity_native.so
+      - libicu.so
+      - libandroidicu.so
+  Top Binary Symbol Audit: 254/254 resolved
+  Transitive Libs Symbol Audit: 36845/36925 resolved across 292 libraries
+  [!] CRITICAL UNRESOLVED SYMBOLS (73):
+      In libandroid.so:
+        - AConnectivityNative_getNetworkBlockedReason
+      In libandroid_runtime.so:
+        - u_charDirection
+        - u_charMirror
+        - u_charType
+        - u_getIntPropertyMaxValue
+        - u_getIntPropertyValue
+      In libminikin.so:
+        - u_charDirection
+        - u_charType
+        - u_errorName
+        - u_getIntPropertyValue
+        - u_hasBinaryProperty
+      In libxml2.so:
+        - UCNV_FROM_U_CALLBACK_STOP_android
+        - UCNV_TO_U_CALLBACK_STOP_android
+        - ucnv_close_android
+        - ucnv_convertEx_android
+        - ucnv_open_android
+      In libsqlite.so:
+        - u_errorName_android
+        - u_foldCase_android
+        - u_isspace_android
+        - u_strToLower_android
+        - u_strToUTF8_android
+      In libmedia.so:
+        - ucnv_close_android
+        - ucnv_convertEx_android
+        - ucnv_getNextUChar_android
+        - ucnv_open_android
+        - ucsdet_close_android
+      In libpdfium.so:
+        - u_isalnum
+        - u_isalpha
+        - u_isspace
+        - u_tolower
+        - u_toupper
+--------------------------------------------------------------------------------
+Binary: system/bin/app_process32
+  Class: ELF32, Architecture: arm
+  Direct DT_NEEDED: 14 entries
+  Undefined Symbols: 53
+  Total Recursive Dependencies: 266
+  [!] MISSING LIBRARIES (4):
+      - libnativeloader.so
+      - libsigchain.so
+      - libicu.so
+      - libandroidicu.so
+  Top Binary Symbol Audit: 53/53 resolved
+  Transitive Libs Symbol Audit: 31562/31634 resolved across 266 libraries
+  [!] CRITICAL UNRESOLVED SYMBOLS (68):
+      In libandroid_runtime.so:
+        - u_charDirection
+        - u_charMirror
+        - u_charType
+        - u_getIntPropertyMaxValue
+        - u_getIntPropertyValue
+      In libminikin.so:
+        - u_charDirection
+        - u_charType
+        - u_errorName
+        - u_getIntPropertyValue
+        - u_hasBinaryProperty
+      In libsqlite.so:
+        - u_errorName_android
+        - u_foldCase_android
+        - u_isspace_android
+        - u_strToLower_android
+        - u_strToUTF8_android
+      In libmedia.so:
+        - ucnv_close_android
+        - ucnv_convertEx_android
+        - ucnv_getNextUChar_android
+        - ucnv_open_android
+        - ucsdet_close_android
+      In libpdfium.so:
+        - u_isalnum
+        - u_isalpha
+        - u_isspace
+        - u_tolower
+        - u_toupper
+--------------------------------------------------------------------------------
+Binary: system/bin/app_process64
+  Class: ELF64, Architecture: aarch64
+  Direct DT_NEEDED: 14 entries
+  Undefined Symbols: 51
+  Total Recursive Dependencies: 266
+  [!] MISSING LIBRARIES (4):
+      - libnativeloader.so
+      - libsigchain.so
+      - libicu.so
+      - libandroidicu.so
+  Top Binary Symbol Audit: 51/51 resolved
+  Transitive Libs Symbol Audit: 31416/31488 resolved across 266 libraries
+  [!] CRITICAL UNRESOLVED SYMBOLS (68):
+      In libandroid_runtime.so:
+        - u_charDirection
+        - u_charMirror
+        - u_charType
+        - u_getIntPropertyMaxValue
+        - u_getIntPropertyValue
+      In libminikin.so:
+        - u_charDirection
+        - u_charType
+        - u_errorName
+        - u_getIntPropertyValue
+        - u_hasBinaryProperty
+      In libsqlite.so:
+        - u_errorName_android
+        - u_foldCase_android
+        - u_isspace_android
+        - u_strToLower_android
+        - u_strToUTF8_android
+      In libmedia.so:
+        - ucnv_close_android
+        - ucnv_convertEx_android
+        - ucnv_getNextUChar_android
+        - ucnv_open_android
+        - ucsdet_close_android
+      In libpdfium.so:
+        - u_isalnum
+        - u_isalpha
+        - u_isspace
+        - u_tolower
+        - u_toupper
+--------------------------------------------------------------------------------
+Binary: system/bin/cameraserver
+  Class: ELF64, Architecture: aarch64
+  Direct DT_NEEDED: 61 entries
+  Undefined Symbols: 1373
+  Total Recursive Dependencies: 205
+  [!] MISSING LIBRARIES (3):
+      - libstatssocket.so
+      - libstatspull.so
+      - libandroidicu.so
+  Top Binary Symbol Audit: 1373/1373 resolved
+  Transitive Libs Symbol Audit: 20663/20681 resolved across 205 libraries
+  [!] CRITICAL UNRESOLVED SYMBOLS (15):
+      In libmedia.so:
+        - ucnv_close_android
+        - ucnv_convertEx_android
+        - ucnv_getNextUChar_android
+        - ucnv_open_android
+        - ucsdet_close_android
+      In libxml2.so:
+        - UCNV_FROM_U_CALLBACK_STOP_android
+        - UCNV_TO_U_CALLBACK_STOP_android
+        - ucnv_close_android
+        - ucnv_convertEx_android
+        - ucnv_open_android
+--------------------------------------------------------------------------------
+Binary: system/bin/mediaextractor
+  Class: ELF64, Architecture: aarch64
+  Direct DT_NEEDED: 11 entries
+  Undefined Symbols: 19
+  Total Recursive Dependencies: 180
+  [!] MISSING LIBRARIES (1):
+      - libandroidicu.so
+  Top Binary Symbol Audit: 19/19 resolved
+  Transitive Libs Symbol Audit: 18534/18545 resolved across 180 libraries
+  [!] CRITICAL UNRESOLVED SYMBOLS (11):
+      In libmedia.so:
+        - ucnv_close_android
+        - ucnv_convertEx_android
+        - ucnv_getNextUChar_android
+        - ucnv_open_android
+        - ucsdet_close_android
+[-] TARGET NOT PRESENT (Skipped): system/bin/mediaserver
+--------------------------------------------------------------------------------
+Binary: system/bin/mediaserver32
+  Class: ELF32, Architecture: arm
+  Direct DT_NEEDED: 17 entries
+  Undefined Symbols: 36
+  Total Recursive Dependencies: 206
+  [!] MISSING LIBRARIES (5):
+      - libicu.so
+      - libstatssocket.so
+      - libcom.android.tethering.connectivity_native.so
+      - libandroidicu.so
+      - libstatspull.so
+  Top Binary Symbol Audit: 36/36 resolved
+  Transitive Libs Symbol Audit: 24003/24030 resolved across 206 libraries
+  [!] CRITICAL UNRESOLVED SYMBOLS (27):
+      In libandroid_net.so:
+        - AConnectivityNative_getNetworkBlockedReason
+      In libmedia.so:
+        - ucnv_close_android
+        - ucnv_convertEx_android
+        - ucnv_getNextUChar_android
+        - ucnv_open_android
+        - ucsdet_close_android
+      In libstats_media_metrics.so:
+        - AStatsEventList_addStatsEvent
+        - AStatsEvent_addBoolAnnotation
+        - AStatsEvent_build
+        - AStatsEvent_obtain
+        - AStatsEvent_release
+--------------------------------------------------------------------------------
+Binary: system/bin/netd
+  Class: ELF64, Architecture: aarch64
+  Direct DT_NEEDED: 28 entries
+  Undefined Symbols: 459
+  Total Recursive Dependencies: 32
+  [!] MISSING LIBRARIES (2):
+      - libnetd_updatable.so
+      - libnetd_resolv.so
+  Top Binary Symbol Audit: 454/459 resolved
+  Transitive Libs Symbol Audit: 3048/3048 resolved across 32 libraries
+  [!] CRITICAL UNRESOLVED SYMBOLS (5):
+      Top Binary Unresolved:
+        - libnetd_updatable_init
+        - libnetd_updatable_tagSocket
+        - libnetd_updatable_untagSocket
+        - resolv_has_nameservers
+        - resolv_init
+--------------------------------------------------------------------------------
+Binary: system/bin/audioserver
+  Class: ELF64, Architecture: aarch64
+  Direct DT_NEEDED: 81 entries
+  Undefined Symbols: 300
+  Total Recursive Dependencies: 171
+  [!] MISSING LIBRARIES (1):
+      - libandroidicu.so
+  Top Binary Symbol Audit: 300/300 resolved
+  Transitive Libs Symbol Audit: 17334/17352 resolved across 171 libraries
+  [!] CRITICAL UNRESOLVED SYMBOLS (15):
+      In libxml2.so:
+        - UCNV_FROM_U_CALLBACK_STOP_android
+        - UCNV_TO_U_CALLBACK_STOP_android
+        - ucnv_close_android
+        - ucnv_convertEx_android
+        - ucnv_open_android
+      In libmedia.so:
+        - ucnv_close_android
+        - ucnv_convertEx_android
+        - ucnv_getNextUChar_android
+        - ucnv_open_android
+        - ucsdet_close_android
+--------------------------------------------------------------------------------
+Binary: system_ext/bin/mcd
+  Class: ELF64, Architecture: aarch64
+  Direct DT_NEEDED: 13 entries
+  Undefined Symbols: 124
+  Total Recursive Dependencies: 21
+  [!] MISSING LIBRARIES (1):
+      - libandroidicu.so
+  Top Binary Symbol Audit: 124/124 resolved
+  Transitive Libs Symbol Audit: 2259/2281 resolved across 21 libraries
+  [!] CRITICAL UNRESOLVED SYMBOLS (22):
+      In libsqlite.so:
+        - u_errorName_android
+        - u_foldCase_android
+        - u_isspace_android
+        - u_strToLower_android
+        - u_strToUTF8_android
+--------------------------------------------------------------------------------
+Binary: system/lib64/libandroid_servers.so
+  Class: ELF64, Architecture: aarch64
+  Direct DT_NEEDED: 102 entries
+  Undefined Symbols: 805
+  Total Recursive Dependencies: 345
+  [!] MISSING LIBRARIES (8):
+      - libadb_pairing_server.so
+      - libadb_pairing_connection.so
+      - libnativehelper.so
+      - libstatspull.so
+      - libstatssocket.so
+      - libcom.android.tethering.connectivity_native.so
+      - libicu.so
+      - libandroidicu.so
+  Top Binary Symbol Audit: 799/805 resolved
+  Transitive Libs Symbol Audit: 41482/41562 resolved across 345 libraries
+  [!] CRITICAL UNRESOLVED SYMBOLS (79):
+      Top Binary Unresolved:
+        - pairing_server_destroy
+        - pairing_server_get_port
+        - pairing_server_new
+        - pairing_server_new_no_cert
+        - pairing_server_start
+      In libandroid.so:
+        - AConnectivityNative_getNetworkBlockedReason
+      In libandroid_runtime.so:
+        - u_charDirection
+        - u_charMirror
+        - u_charType
+        - u_getIntPropertyMaxValue
+        - u_getIntPropertyValue
+      In libminikin.so:
+        - u_charDirection
+        - u_charType
+        - u_errorName
+        - u_getIntPropertyValue
+        - u_hasBinaryProperty
+      In libxml2.so:
+        - UCNV_FROM_U_CALLBACK_STOP_android
+        - UCNV_TO_U_CALLBACK_STOP_android
+        - ucnv_close_android
+        - ucnv_convertEx_android
+        - ucnv_open_android
+      In libsqlite.so:
+        - u_errorName_android
+        - u_foldCase_android
+        - u_isspace_android
+        - u_strToLower_android
+        - u_strToUTF8_android
+      In libmedia.so:
+        - ucnv_close_android
+        - ucnv_convertEx_android
+        - ucnv_getNextUChar_android
+        - ucnv_open_android
+        - ucsdet_close_android
+      In libpdfium.so:
+        - u_isalnum
+        - u_isalpha
+        - u_isspace
+        - u_tolower
+        - u_toupper
+--------------------------------------------------------------------------------
+Binary: system/lib64/libandroid_runtime.so
+  Class: ELF64, Architecture: aarch64
+  Direct DT_NEEDED: 106 entries
+  Undefined Symbols: 2999
+  Total Recursive Dependencies: 263
+  [!] MISSING LIBRARIES (2):
+      - libicu.so
+      - libandroidicu.so
+  Top Binary Symbol Audit: 2993/2999 resolved
+  Transitive Libs Symbol Audit: 28083/28149 resolved across 263 libraries
+  [!] CRITICAL UNRESOLVED SYMBOLS (68):
+      Top Binary Unresolved:
+        - u_charDirection
+        - u_charMirror
+        - u_charType
+        - u_getIntPropertyMaxValue
+        - u_getIntPropertyValue
+      In libminikin.so:
+        - u_charDirection
+        - u_charType
+        - u_errorName
+        - u_getIntPropertyValue
+        - u_hasBinaryProperty
+      In libsqlite.so:
+        - u_errorName_android
+        - u_foldCase_android
+        - u_isspace_android
+        - u_strToLower_android
+        - u_strToUTF8_android
+      In libmedia.so:
+        - ucnv_close_android
+        - ucnv_convertEx_android
+        - ucnv_getNextUChar_android
+        - ucnv_open_android
+        - ucsdet_close_android
+      In libpdfium.so:
+        - u_isalnum
+        - u_isalpha
+        - u_isspace
+        - u_tolower
+        - u_toupper
+
+================================================================================
+                              AUDIT SUMMARY
+================================================================================
+Binaries Audited: 11
+Total Missing Shared Libraries: 34
+Total Missing Critical Symbols: 451
+Overall Result: WARNINGS FOUND
+================================================================================

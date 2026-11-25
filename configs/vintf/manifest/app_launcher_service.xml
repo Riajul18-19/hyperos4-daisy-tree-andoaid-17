@@ -1,0 +1,10 @@
+<!--
+    Input:
+        frameworks/base/services/app_launcher_service.xml
+-->
+<manifest version="9.0" type="framework">
+    <hal format="aidl">
+        <name>vendor.qti.appLauncherService</name>
+        <fqname>IAppLauncherService/default</fqname>
+    </hal>
+</manifest>
