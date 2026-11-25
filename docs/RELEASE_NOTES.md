@@ -9,8 +9,10 @@ Clean, daily-driver tuned HyperOS 4 (Android 17) build for Xiaomi Mi A2 Lite (`d
 ---
 
 ## Downloads
-- **OrangeFox / Boot Image:** `orangefox.img` (`40,452,096` bytes, `SHA-256: 42759758f7e246c28744c202a82128b6630cb887eb0abace5bbf51ca2d8e3c86`)
-- **ROM Package:** `HyperOS-4-Android17-daisy-Release-Final.zip` (`3,216,430,502` bytes, `SHA-256: 42bb6d49b6608dd60ff3f1509c15a6078235ef89e825e6bcf263b54f07fead6d`)
+- **OrangeFox / Boot Image:** `orangefox.img` (`40,452,096` bytes, `SHA-256: 42759758f7e246c28744c202a82128b6630cb887eb0abace5bbf51ca2d8e3c86`) — attached below
+- **ROM Package (`HyperOS-4-Android17-daisy-Release-Final.zip`, `3,216,430,502` bytes):**  
+  [Download from Google Drive](https://drive.google.com/file/d/1vbNp_KbIblFwKcF5qGcQ8iCwy9N20nd0/view?usp=sharing)  
+  `SHA-256: 42bb6d49b6608dd60ff3f1509c15a6078235ef89e825e6bcf263b54f07fead6d`
 
 ---
 
