@@ -5,14 +5,14 @@ Device: Xiaomi Mi A2 Lite (daisy)
 Target OS: HyperOS 4 (Android 17 / Baklava)
 Build Type: v21-Minimal (Exhaustive Android 17 BPF Map & Program Audit & Native Kernel 4.9 Alignment)
 Maintainer: Riajul
-Build Duration: 218.55 seconds
-Build Timestamp: 2026-11-25 08:36:22 UTC
+Build Duration: 203.94 seconds
+Build Timestamp: 2026-11-25 10:09:33 UTC
 
 1. PARTITION LIMITS & SYSTEM.IMG AUDIT
 --------------------------------------------------------------------------------
 System Partition Max Size: 2,543,493,120 bytes (620,970 blocks / 2.37 GB)
-Repacked system.img Size:  2,354,712,576 bytes (2245.63 MB)
-Partition Headroom:        188,780,544 bytes (180.04 MB / 7.42% free)
+Repacked system.img Size:  2,353,889,280 bytes (2244.84 MB)
+Partition Headroom:        189,603,840 bytes (180.82 MB / 7.45% free)
 Filesystem Type:           EROFS
 Compression Algorithm:     LZ4HC (level 12)
 Filesystem Integrity:      VERIFIED (fsck.erofs passed with 0 errors)
@@ -65,20 +65,20 @@ C. Authenticity & Compliance:
   PROOF: /system/etc/fonts.xml -> NID=38653968, Inode_size=32, Xattr_size=16, security.selinux = u:object_r:system_file:s0
   PROOF: /system/etc/font_fallback.xml -> NID=38653964, Inode_size=32, Xattr_size=16, security.selinux = u:object_r:system_file:s0
   PROOF: /system/framework/service-connectivity.jar -> NID=38754522, Inode_size=32, Xattr_size=16, security.selinux = u:object_r:system_file:s0
-Total Inodes Audited:      9,524
-Total Labeled Inodes:      9,524
+Total Inodes Audited:      9,520
+Total Labeled Inodes:      9,520
 Total Unlabeled Inodes:    0 (100% compliant)
 
 4. FINAL DELIVERABLE ZIP
 --------------------------------------------------------------------------------
 ZIP File:                  /home/riajul/Pictures/HyperOS/HyperOS-4-Android17-daisy-Release-Final.zip
-ZIP Size:                  3,217,253,798 bytes (3068.21 MB)
+ZIP Size:                  3,216,430,502 bytes (3067.43 MB)
 ZIP Integrity:             VERIFIED (unzip -t passed with 0 CRC errors)
 
 5. SHA-256 CHECKSUMS
 --------------------------------------------------------------------------------
-ZIP:        7f8ea1a3346d171b48f9274306afd91f843fd17fc995e760c2a22cfdfd8ddb37  HyperOS-4-Android17-daisy-Release-Final.zip
-system.img: 457b0e5407ad8948e3f74f3f3202f07d0f2edc1b8fb1aec7e2feec93aa9eaa76  system.img
+ZIP:        42bb6d49b6608dd60ff3f1509c15a6078235ef89e825e6bcf263b54f07fead6d  HyperOS-4-Android17-daisy-Release-Final.zip
+system.img: eed968a11609f0f1a2641f8ef39391d5bbb1141012d21810966e35c2b112af11  system.img
 boot.img:   42759758f7e246c28744c202a82128b6630cb887eb0abace5bbf51ca2d8e3c86  boot.img
-vendor.img: 60d0965bca1a4481778f8813cddd42902aeffdf056c8a107b1edd5643df45520  vendor.img
+vendor.img: 22102cb85d7946b62691ccb0e24e509e7f67125a8e55c59e0e5753ebb3cec289  vendor.img
 ================================================================================

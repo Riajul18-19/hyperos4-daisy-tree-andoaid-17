@@ -472,15 +472,68 @@ def restore_wallpaper_picker():
     log(f"  Installed GoogleWallpaper.apk ({os.path.getsize(dst_apk):,} bytes).")
 
 def patch_settings_apk():
-    log("[*] Restoring authentic genuine signed Settings.apk from Pandora (preserves Xiaomi v2/v3 signature)...")
+    log("[*] Patching Pandora Settings.apk in-place (fix WifiConfigController2 mPrivacySettingsSpinner NPE)...")
     apk = os.path.join(TARGET, "system_ext/priv-app/Settings/Settings.apk")
+    oat_dir = os.path.join(TARGET, "system_ext/priv-app/Settings/oat")
     src_apk = os.path.join(WORKSPACE, "pandora_extracted/system_ext/priv-app/Settings/Settings.apk")
     assert os.path.exists(src_apk), f"Missing {src_apk}"
+    if os.path.exists(oat_dir):
+        shutil.rmtree(oat_dir, ignore_errors=True)
     shutil.copyfile(src_apk, apk)
-    os.chmod(apk, 0o644)
+
+    with open(apk, "rb") as f:
+        apk_data = bytearray(f.read())
+
     with zipfile.ZipFile(apk, "r") as z:
-        assert z.testzip() is None, "Settings.apk testzip failed!"
-    log("  Settings.apk restored cleanly with genuine official Xiaomi signatures.")
+        info = z.getinfo("classes4.dex")
+        assert info.compress_type == zipfile.ZIP_STORED, f"Expected STORED classes4.dex, got {info.compress_type}"
+        hdr_off = info.header_offset
+        c4_sz = info.file_size
+
+    _, _, _, _, _, _, _, _, _, nlen, elen = struct.unpack_from("<IHHHHHIIIHH", apk_data, hdr_off)
+    c4_off = hdr_off + 30 + nlen + elen
+    c4 = bytearray(apk_data[c4_off : c4_off + c4_sz])
+    assert c4[:8] == b"dex\n039\x00", f"Unexpected DEX magic: {c4[:8]}"
+
+    # WifiConfigController2.initWifiConfigController2 (+0x0882): guard null mPrivacySettingsSpinner
+    # when config_wifi_connected_mac_randomization_supported=false skips view binding at +0x0282.
+    target = bytes.fromhex("54c6632f6e20c7fd5600")
+    assert c4[0x2ad526 : 0x2ad526 + 10] == target, f"Unexpected Settings classes4.dex bytes: {c4[0x2ad526:0x2ad530].hex()}"
+    c4[0x2ad526 : 0x2ad526 + 10] = b"\x00" * 10
+
+    sha1_4 = hashlib.sha1(c4[32:]).digest()
+    c4[12:32] = sha1_4
+    adler_4 = zlib.adler32(c4[12:]) & 0xffffffff
+    c4[8:12] = struct.pack("<I", adler_4)
+    c4_crc = zlib.crc32(c4) & 0xffffffff
+
+    apk_data[c4_off : c4_off + c4_sz] = c4
+    struct.pack_into("<I", apk_data, hdr_off + 14, c4_crc)
+
+    pos = 0
+    found4 = False
+    while True:
+        pos = apk_data.find(b"PK\x01\x02", pos)
+        if pos == -1:
+            break
+        fn_len = struct.unpack_from("<H", apk_data, pos + 28)[0]
+        fn = apk_data[pos + 46 : pos + 46 + fn_len].decode("utf-8", errors="replace")
+        if fn == "classes4.dex":
+            struct.pack_into("<I", apk_data, pos + 16, c4_crc)
+            found4 = True
+            break
+        pos += 4
+    assert found4, "CD entry for classes4.dex not found in Settings.apk!"
+
+    with open(apk, "wb") as f:
+        f.write(apk_data)
+    os.chmod(apk, 0o644)
+
+    with zipfile.ZipFile(apk, "r") as z:
+        bad = z.testzip()
+        assert bad is None, f"Settings.apk testzip failed: {bad}"
+        verify_dex_bytes(z.read("classes4.dex"), "Settings:classes4.dex")
+    log("  Settings.apk patched cleanly (WLAN bottom-sheet Spinner NPE fixed, signature preserved).")
 
 
 def setup_light_theme_wallpapers():
@@ -860,13 +913,20 @@ def update_build_prop_performance():
         'persist.sys.stability.PrereadEnable': 'false',
         'persist.device_config.runtime_native_boot.iorap_perfetto_enable': 'false',
         'persist.device_config.runtime_native_boot.iorap_readahead_enable': 'false',
-        # Limit Background Dex2Oat CPU Threads on SDM625
+        # Keep UI cores 0-3 free during first boot & SetupWizard; bind dex2oat to cores 4-7
         'dalvik.vm.dex2oat-threads': '3',
         'dalvik.vm.boot-dex2oat-threads': '4',
         'dalvik.vm.background-dex2oat-threads': '2',
-        'dalvik.vm.dex2oat-cpu-set': '0,1,2,3',
+        'dalvik.vm.boot-dex2oat-cpu-set': '0,1,2,3,4,5,6,7',
+        'dalvik.vm.dex2oat-cpu-set': '4,5,6,7',
+        'dalvik.vm.background-dex2oat-cpu-set': '4,5,6,7',
         'pm.dexopt.bg-dexopt': 'speed-profile',
-        'pm.dexopt.first-boot': 'quicken',
+        'pm.dexopt.first-boot': 'verify',
+        'pm.dexopt.boot-after-ota': 'verify',
+        'pm.dexopt.boot-after-mainline-update': 'verify',
+        'ro.vendor.qti.sys.fw.bservice_enable': 'true',
+        'ro.vendor.qti.sys.fw.bservice_limit': '5',
+        'ro.vendor.qti.sys.fw.bservice_age': '5000',
     }
     for pf in [
         os.path.join(TARGET, 'system/build.prop'),
@@ -1764,6 +1824,32 @@ service daisy_init /system/bin/sh /system/bin/daisy_init_defaults.sh
     disabled
     oneshot
     seclabel u:r:init:s0
+
+on boot
+    # Native C++ init writes for SDM625 CPU/GPU/eMMC/VM before SetupWizard draws frame 1
+    write /sys/block/mmcblk0/queue/read_ahead_kb 512
+    write /sys/block/mmcblk0/queue/iostats 0
+    write /sys/block/mmcblk0/queue/rq_affinity 2
+    write /proc/sys/vm/swappiness 100
+    write /proc/sys/vm/page-cluster 0
+    write /proc/sys/vm/extra_free_kbytes 24300
+    write /dev/cpuset/background/cpus 0-1
+    write /dev/cpuset/system-background/cpus 0-2
+    write /dev/cpuset/restricted/cpus 0-3
+    write /dev/cpuset/foreground/cpus 0-7
+    write /dev/cpuset/top-app/cpus 0-7
+    write /sys/module/cpu_boost/parameters/input_boost_freq "0:1401600 1:1401600 2:1401600 3:1401600 4:0 5:0 6:0 7:0"
+    write /sys/module/cpu_boost/parameters/input_boost_ms 80
+    write /sys/module/cpu_boost/parameters/sched_boost_on_input 1
+    write /sys/class/kgsl/kgsl-3d0/devfreq/governor msm-adreno-tz
+    write /sys/class/kgsl/kgsl-3d0/devfreq/polling_interval 10
+    write /sys/class/kgsl/kgsl-3d0/idle_timer 70
+    write /sys/class/kgsl/kgsl-3d0/bus_split 1
+    write /sys/class/kgsl/kgsl-3d0/hwcg 1
+    write /sys/class/kgsl/kgsl-3d0/preemption 1
+    write /sys/class/kgsl/kgsl-3d0/max_pwrlevel 0
+    write /sys/class/kgsl/kgsl-3d0/min_pwrlevel 7
+    write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 6
 
 on property:sys.boot_completed=1
     start daisy_init

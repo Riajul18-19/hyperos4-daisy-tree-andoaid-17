@@ -3,7 +3,7 @@
 **Author & Lead Maintainer:** [Riajul (`Riajul18-19`)](https://github.com/Riajul18-19)  
 **Target Hardware:** Xiaomi Mi A2 Lite (`daisy` / `daisy_sprout`, Qualcomm MSM8953 Snapdragon 625)  
 **Kernel:** `Linux 4.9.337-Zero+` (`Ubuntu Clang 18.1.3`, `#7 SMP PREEMPT`, KernelSU + OrangeFox permanent recovery)  
-**System Image:** Single-partition SAR `EROFS` (`-zlz4hc,12`), `2,354,712,576` bytes (`180.04 MB` free inside the `2,543,493,120`-byte `system_{a,b}` hardware slot)
+**System Image:** Single-partition SAR `EROFS` (`-zlz4hc,12`), `2,353,889,280` bytes (`180.82 MB` free inside the `2,543,493,120`-byte `system_{a,b}` hardware slot)
 
 ---
 

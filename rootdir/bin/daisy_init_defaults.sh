@@ -182,7 +182,8 @@ settings put secure doze_always_on 0
 settings put secure aod_mode 0
 pm enable com.miui.aod 2>/dev/null
 
-# 9. Runtime permissions & appops for MIUI Home
+# 9. One-time Runtime Permissions & AppOps for MIUI Home (avoid blocking every boot)
+if [ "$(getprop persist.daisy.perms_v26)" != "1" ]; then
 pm grant com.miui.home android.permission.READ_EXTERNAL_STORAGE 2>/dev/null
 pm grant com.miui.home android.permission.WRITE_EXTERNAL_STORAGE 2>/dev/null
 pm grant com.miui.home android.permission.READ_MEDIA_IMAGES 2>/dev/null
@@ -205,6 +206,8 @@ appops set com.miui.home SYSTEM_ALERT_WINDOW allow 2>/dev/null
 appops set com.miui.home WRITE_SETTINGS allow 2>/dev/null
 appops set com.miui.home MANAGE_EXTERNAL_STORAGE allow 2>/dev/null
 appops set com.miui.home LEGACY_STORAGE allow 2>/dev/null
+setprop persist.daisy.perms_v26 1
+fi
 
 # 10. Default Wallpaper Initialization
 mkdir -p /data/system/theme

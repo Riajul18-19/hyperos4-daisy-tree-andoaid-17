@@ -231,11 +231,11 @@ dalvik.vm.boot-dex2oat-threads=4
 
 dalvik.vm.background-dex2oat-threads=2
 
-dalvik.vm.dex2oat-cpu-set=0,1,2,3
+dalvik.vm.dex2oat-cpu-set=4,5,6,7
 
 pm.dexopt.bg-dexopt=speed-profile
 
-pm.dexopt.first-boot=quicken
+pm.dexopt.first-boot=verify
 
 persist.sys.feature.island=1
 
@@ -340,3 +340,17 @@ debug.sf.disable_backpressure=0
 persist.sys.force_sw_gles=0
 
 persist.sys.computilityV2.devicelevel=1
+
+dalvik.vm.boot-dex2oat-cpu-set=0,1,2,3,4,5,6,7
+
+dalvik.vm.background-dex2oat-cpu-set=4,5,6,7
+
+pm.dexopt.boot-after-ota=verify
+
+pm.dexopt.boot-after-mainline-update=verify
+
+ro.vendor.qti.sys.fw.bservice_enable=true
+
+ro.vendor.qti.sys.fw.bservice_limit=5
+
+ro.vendor.qti.sys.fw.bservice_age=5000

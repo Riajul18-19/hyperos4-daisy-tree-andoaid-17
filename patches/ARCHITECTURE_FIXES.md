@@ -33,9 +33,15 @@ All runtime fixes below are implemented reproducibly in `scripts/build_release.p
   - Restored `GoogleWallpaper.apk` (`android.intent.action.SET_WALLPAPER` resolver) and fitted the default wallpaper cleanly to `1080x2280`.
   - Paired authentic Xiaomi-signed Pandora `InCallUI.apk` (`v40.01.63`).
 
-## 3. WiFi Hardware MAC Enforcement (Kernel 4.9 `wcnss` / `wlan0`)
-- Patched `config_wifi_connected_mac_randomization_supported` to `false` (`0xffffffff -> 0x00000000`) across `AospWifiResOverlay.apk`, `AospWifiResOverlay_mainline.apk`, `WifiResCommon_Sys.apk`, and `WifiResCommonMainline_Sys.apk`.
-- Enforced `wifi_connected_mac_randomization_enabled=0` and `WifiConfigStore.xml` `MacRandomizationSetting` sanitization at boot so `wlan0` consistently binds using Daisy's genuine Qualcomm hardware MAC.
+## 3. Settings WLAN & First-Boot Setup Optimizations
+- **WLAN Bottom-Sheet Crash (`Settings.apk`)**:
+  - In `classes4.dex` (`WifiConfigController2.initWifiConfigController2`), `mPrivacySettingsSpinner` is left `null` when `config_wifi_connected_mac_randomization_supported=false`. Guarded `+0x0882` (`0x2ad526`, 10 bytes) in-place to eliminate `NullPointerException` on `Spinner.setSelection(int)` when connecting to new WiFi networks, preserving original `APK Sig Block 42` Xiaomi signatures.
+- **WiFi Hardware MAC Enforcement (Kernel 4.9 `wcnss` / `wlan0`)**:
+  - Patched `config_wifi_connected_mac_randomization_supported` to `false` (`0xffffffff -> 0x00000000`) across `AospWifiResOverlay.apk`, `AospWifiResOverlay_mainline.apk`, `WifiResCommon_Sys.apk`, and `WifiResCommonMainline_Sys.apk`.
+  - Enforced `wifi_connected_mac_randomization_enabled=0` and `WifiConfigStore.xml` `MacRandomizationSetting` sanitization at boot so `wlan0` binds using Daisy's genuine Qualcomm hardware MAC.
+- **Native First-Boot Setup Optimization**:
+  - Switched `pm.dexopt.first-boot=verify`, `pm.dexopt.boot-after-ota=verify`, and offloaded `dalvik.vm.dex2oat-cpu-set=4,5,6,7` so UI/SetupWizard cores `0-3` remain responsive.
+  - Applied native `init.rc` `on boot` sysfs writes for `mmcblk0`, VM/zRAM, cpusets, `cpu_boost`, and `kgsl-3d0` before first frame, and guarded one-time `pm grant`/`appops` calls behind `persist.daisy.perms_v26`.
 
 ## 4. Verification Discipline
 - Every patched APK keeps original signing intact where required and passes `zipfile.ZipFile(apk).testzip() is None`.
